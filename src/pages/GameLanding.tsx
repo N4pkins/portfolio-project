@@ -41,7 +41,10 @@ function GameLanding() {
     window.addEventListener('blur', reset)
     document.addEventListener('visibilitychange', reset)
 
-    import('../game/createGame').then(({ createGame }) => {
+    Promise.all([
+      import('../game/createGame'),
+      document.fonts.load('16px "Warp Pixel"'),
+    ]).then(([{ createGame }]) => {
       if (cancelled || !host.current) return
       game = createGame(host.current, controls.current, () => {
         if (!cancelled) {
@@ -111,6 +114,19 @@ function GameLanding() {
     syncControls()
   }
 
+  const handleMenuKey = (event: KeyboardEvent<HTMLDialogElement>) => {
+    const options = Array.from(event.currentTarget.querySelectorAll<HTMLElement>('button, a[href]'))
+    const current = options.findIndex((option) => option === document.activeElement)
+    if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
+      event.preventDefault()
+      const direction = event.code === 'ArrowDown' ? 1 : -1
+      options[(current + direction + options.length) % options.length]?.focus()
+    } else if (event.code === 'Space') {
+      event.preventDefault()
+      options[current]?.click()
+    }
+  }
+
   return (
     <section className="game-landing" aria-label="Portfolio game">
       <div className="game-shell">
@@ -169,12 +185,12 @@ function GameLanding() {
         ref={menu}
         className="pause-menu"
         aria-labelledby="menu-title"
+        onKeyDown={handleMenuKey}
         onCancel={(event) => { event.preventDefault(); setMenuOpen(false) }}
       >
         <h1 id="menu-title">Game paused</h1>
         <button type="button" autoFocus onClick={() => setMenuOpen(false)}>Resume</button>
         <a href="/hello-world">Quit Game</a>
-        <p>Esc to resume</p>
       </dialog>
     </section>
   )

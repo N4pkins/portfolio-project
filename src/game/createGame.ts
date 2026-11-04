@@ -35,13 +35,12 @@ const MOVEMENT = {
 const FRAME = { idle: 0, turn: 4, jump: 5 }
 const pipes = [
   { x: 440, height: PIPE_HEIGHT, label: 'TECHNOLOGY', href: '/technology' },
-  { x: 790, height: PIPE_HEIGHT, label: 'HELLO WORLD', href: '/hello-world' },
+  { x: 790, height: PIPE_HEIGHT, label: 'FOOD & WINE', href: '/food-and-wine' },
 ]
 
 export function createGame(parent: HTMLElement, controls: Controls, onReady: () => void, onMenu: () => void = () => {}) {
   class LandingScene extends Phaser.Scene {
     private player!: Phaser.Physics.Arcade.Sprite
-    private hint!: Phaser.GameObjects.Text
     private entering = false
     private wasJumping = false
     private jumpReleased = false
@@ -59,6 +58,10 @@ export function createGame(parent: HTMLElement, controls: Controls, onReady: () 
       guide.setInteractive(new Phaser.Geom.Rectangle(204, 70, 44, 28), Phaser.Geom.Rectangle.Contains)
       guide.on('pointerdown', onMenu)
 
+      this.add.text(WIDTH / 2, 152, 'WELCOME TO WARP ZONE!', {
+        fontFamily: 'Warp Pixel', fontSize: '16px', color: '#ffffff',
+      }).setOrigin(0.5)
+
       const solids = this.physics.add.staticGroup()
       const floor = this.add.zone(WIDTH / 2, GROUND + 40, WIDTH, 80)
       solids.add(floor)
@@ -68,8 +71,7 @@ export function createGame(parent: HTMLElement, controls: Controls, onReady: () 
         drawPipe(this, pipe.x, top, pipe.height)
         solids.add(this.add.zone(pipe.x, top + pipe.height / 2, 72, pipe.height))
         this.add.text(pipe.x, top - 30, pipe.label, {
-          fontFamily: 'monospace', fontSize: '17px', color: '#fffcf4',
-          backgroundColor: '#181820', padding: { x: 10, y: 6 },
+          fontFamily: 'Warp Pixel', fontSize: '16px', color: '#ffffff',
         }).setOrigin(0.5)
       }
 
@@ -83,10 +85,6 @@ export function createGame(parent: HTMLElement, controls: Controls, onReady: () 
       this.player.body!.setSize(12, 16).setOffset(2, 0)
       this.physics.add.collider(this.player, solids)
       this.physics.world.setBounds(0, 0, WIDTH, HEIGHT)
-      this.hint = this.add.text(WIDTH / 2, 445, 'JUMP ON A PIPE TO EXPLORE', {
-        fontFamily: 'monospace', fontSize: '17px', color: '#fffcf4',
-        backgroundColor: '#181820', padding: { x: 10, y: 6 },
-      }).setOrigin(0.5)
       onReady()
     }
 
@@ -150,7 +148,6 @@ export function createGame(parent: HTMLElement, controls: Controls, onReady: () 
         Math.abs(this.player.x - candidate.x) < 22 &&
         Math.abs(body.bottom - (GROUND - candidate.height)) < 4 && body.blocked.down,
       )
-      this.hint.setText(pipe ? 'PRESS DOWN TO ENTER' : 'JUMP ON A PIPE TO EXPLORE')
       if (pipe && controls.enter) {
         this.entering = true
         this.player.anims.stop()

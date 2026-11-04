@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Warp Pixel';
+  src: url('../assets/fonts/PressStart2P-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 .game-landing {
   position: fixed;
   inset: 0;
@@ -42,9 +50,7 @@
 }
 
 .menu-trigger,
-.touch-controls button,
-.pause-menu button,
-.pause-menu a {
+.touch-controls button {
   border: 2px solid #101520;
   border-radius: 0;
   box-shadow: 3px 3px 0 #101520;
@@ -126,16 +132,19 @@
 }
 
 .pause-menu {
-  width: min(22rem, calc(100vw - 2rem));
+  width: min(30rem, calc(100vw - 2rem));
   max-height: calc(100dvh - 2rem);
   overflow: auto;
-  border: 4px solid #e7dfcc;
-  box-shadow: 8px 8px 0 #080c16;
-  padding: 2rem;
-  background: #17203a;
-  color: #fff5dc;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  background: #000000;
+  color: #ffffff;
   text-align: center;
-  font-family: monospace;
+  font-family: 'Warp Pixel', monospace;
+  font-synthesis: none;
+  text-transform: uppercase;
 }
 
 .pause-menu::backdrop {
@@ -143,23 +152,53 @@
 }
 
 .pause-menu h1 {
-  margin: 0 0 1.75rem;
-  font-size: 1.75rem;
+  margin: 0 0 2rem;
+  font-size: clamp(0.875rem, 3vw, 1rem);
+  font-weight: 400;
+  line-height: 1.75;
 }
 
 .pause-menu button,
 .pause-menu a {
   display: block;
+  position: relative;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
+  min-height: 44px;
+  padding: 1rem 1.25rem;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: #000000;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  text-transform: inherit;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
 }
 
-.pause-menu button:hover,
-.pause-menu a:hover {
-  background: #fff5dc;
+.pause-menu button::before,
+.pause-menu a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: calc(50% - 5px);
+  width: 8px;
+  height: 10px;
+  background: #ffffff;
+  clip-path: polygon(0 0, 25% 0, 25% 20%, 50% 20%, 50% 40%, 75% 40%, 75% 60%, 50% 60%, 50% 80%, 25% 80%, 25% 100%, 0 100%);
+  opacity: 0;
 }
 
-.pause-menu p {
-  margin: 1.5rem 0 0;
-  color: #b9c9dc;
+.pause-menu button:focus::before,
+.pause-menu a:focus::before {
+  opacity: 1;
+}
+
+.pause-menu button:focus-visible,
+.pause-menu a:focus-visible {
+  outline: none;
 }

@@ -5,6 +5,9 @@ A React + TypeScript portfolio built with Vite, with a playable Phaser landing p
 - `/`: Game-only landing page with pipes leading to portfolio pages.
 - `/hello-world`: Original Hello World page.
 - `/technology`: Technology placeholder with a link back home.
+- `/food-and-wine`: Food & Wine placeholder, reached through the right-hand pipe.
+
+Content pages share a left-aligned navigation bar: the character's first sprite frame links back to the game, followed by Technology and Food & Wine.
 
 The game loads only when visiting the landing page. The character uses the bundled sprite sheet at `src/assets/tanner-the-plumber.png`; scenery is drawn in code. The landing page shows only the game, with its original aspect ratio preserved and dark letterboxing when needed. Escape opens a pause menu; Quit Game links directly to Hello World.
 
@@ -17,10 +20,13 @@ The scenery in `src/game/scenery.ts` uses a two-pixel grid: blue sky, stepped cl
 - **Space or Up arrow:** jump; hold for more height or tap for a shorter jump.
 - **Down arrow:** enter a pipe while standing on it.
 - **Escape:** pause and open the menu; press again or select Resume to continue. Quit Game goes to `/hello-world`.
+- **Up/Down in the menu:** change selection, wrapping between Resume and Quit Game. Enter or Space activates the selected option; Tab also works.
 
 On touch devices, controls overlay the game for movement, Run, Jump, and Enter. Hold a direction and Run together to run; add Jump to jump while running. The Menu button inside the game also opens the pause menu.
 
 Movement approximates the original platformer feel with acceleration, braking, coasting, air momentum, and stronger gravity when falling or releasing jump. It is not a cycle-exact emulator.
+
+The warp-zone greeting, pipe labels, and black pause menu share the locally bundled Press Start 2P font (`src/assets/fonts/`), licensed under the included SIL Open Font License. The game waits for the font before drawing canvas text. The ground has no helper text.
 
 ## Local development
 
@@ -49,4 +55,4 @@ Routes and navigation live in `src/App.tsx`. The React game page is `src/pages/G
 
 The character sheet is a single 96 × 16 pixel row of six 16 × 16 frames: frames 0–3 form the walk cycle, frame 4 is the skid pose, and frame 5 is the jump pose. Frame 0 is also used while idle. Frame indices and movement tuning live in `src/game/createGame.ts`.
 
-Navigation uses ordinary links, with the URL pathname selecting the page. When deploying `dist/` to a static host, configure an `index.html` fallback so direct visits to `/hello-world` and `/technology` work. No backend is required.
+Navigation uses ordinary links, with the URL pathname selecting the page. When deploying `dist/` to a static host, configure an `index.html` fallback so direct visits to `/hello-world`, `/technology`, and `/food-and-wine` work. No backend is required.
