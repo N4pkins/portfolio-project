@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import playerSheet from '../assets/tanner-the-plumber.png'
 import { drawBackground, drawPipe } from './scenery'
 import controlsGuide from '../assets/controls-guide.svg'
+import { sitePath } from '../sitePaths'
 
 export type Controls = {
   left: boolean
@@ -155,7 +156,7 @@ export function createGame(parent: HTMLElement, controls: Controls, onReady: () 
         this.player.setFrame(FRAME.idle).setX(pipe.x)
         this.tweens.add({
           targets: this.player, y: this.player.y + 64, alpha: 0, duration: 450,
-          onComplete: () => window.location.assign(pipe.href),
+          onComplete: () => window.location.assign(sitePath(pipe.href)),
         })
       }
     }

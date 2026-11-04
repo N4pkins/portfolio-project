@@ -55,4 +55,12 @@ Routes and navigation live in `src/App.tsx`. The React game page is `src/pages/G
 
 The character sheet is a single 96 × 16 pixel row of six 16 × 16 frames: frames 0–3 form the walk cycle, frame 4 is the skid pose, and frame 5 is the jump pose. Frame 0 is also used while idle. Frame indices and movement tuning live in `src/game/createGame.ts`.
 
-Navigation uses ordinary links, with the URL pathname selecting the page. When deploying `dist/` to a static host, configure an `index.html` fallback so direct visits to `/hello-world`, `/technology`, and `/food-and-wine` work. No backend is required.
+Navigation uses ordinary links, with the URL pathname selecting the page. Links and pipe navigation use Vite's base URL through `src/sitePaths.ts`. No backend is required.
+
+## GitHub Pages
+
+In the repository's Settings → Pages, select **GitHub Actions** as the deployment source. Publishing the repository root directly serves unbuilt TypeScript and will not run the app.
+
+The `.github/workflows/deploy-pages.yml` workflow installs dependencies, lints, runs `npm run build:pages`, and deploys only `dist/` on pushes to `main` or manual runs. The Pages build uses `/portfolio-project/` as its base URL, matching `https://n4pkins.github.io/portfolio-project/`.
+
+`scripts/prepare-pages.mjs` creates entry files for the three content routes so direct visits and refreshes work on Pages, along with a not-found entry and the font license. Add new content routes to that script when adding pages. Local `npm run dev`, `npm run build`, and `npm run preview` continue to use `/`.

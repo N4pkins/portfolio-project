@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent, PointerEvent } from 'react'
 import type { Controls } from '../game/createGame'
 import './GameLanding.css'
+import { sitePath } from '../sitePaths'
 
 const keyActions: Record<string, keyof Controls> = {
   ArrowLeft: 'left', ArrowRight: 'right',
@@ -190,7 +191,7 @@ function GameLanding() {
       >
         <h1 id="menu-title">Game paused</h1>
         <button type="button" autoFocus onClick={() => setMenuOpen(false)}>Resume</button>
-        <a href="/hello-world">Quit Game</a>
+        <a href={sitePath('/hello-world')}>Quit Game</a>
       </dialog>
     </section>
   )
