@@ -1,9 +1,13 @@
 import './App.css'
+import GameLanding from './pages/GameLanding'
 
 function App() {
   const pathname = window.location.pathname.replace(/\/+$/, '') || '/'
   const isHome = pathname === '/'
+  const isHelloWorld = pathname === '/hello-world'
   const isTechnology = pathname === '/technology'
+
+  if (isHome) return <main className="game-content"><GameLanding /></main>
 
   return (
     <div className="site">
@@ -19,8 +23,11 @@ function App() {
       </header>
 
       <main className="page-content">
-        {isHome ? (
-          <h1>Hello World</h1>
+        {isHelloWorld ? (
+          <>
+            <h1>Hello World</h1>
+            <a href="/">Back to home</a>
+          </>
         ) : isTechnology ? (
           <>
             <h1>Technology</h1>

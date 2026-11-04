@@ -1,0 +1,165 @@
+.game-landing {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #101520;
+}
+
+.game-shell {
+  position: relative;
+  width: min(100vw, 200dvh);
+  aspect-ratio: 2;
+  overflow: hidden;
+  background: #5c94fc;
+}
+
+.game-stage {
+  width: 100%;
+  height: 100%;
+}
+
+.game-stage canvas {
+  display: block;
+}
+
+.game-stage:focus-visible {
+  outline: 2px solid #fff5dc;
+  outline-offset: -2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.menu-trigger,
+.touch-controls button,
+.pause-menu button,
+.pause-menu a {
+  border: 2px solid #101520;
+  border-radius: 0;
+  box-shadow: 3px 3px 0 #101520;
+  padding: 0.65rem 0.9rem;
+  color: #17203a;
+  background: #e7dfcc;
+  font: 600 0.875rem monospace;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.menu-trigger {
+  position: absolute;
+  /* Esc bounds in the 960 x 480 scene, with the legend at 75% scale. */
+  top: 14.270833%;
+  left: 17.604167%;
+  width: 3.4375%;
+  min-width: 24px;
+  height: 4.375%;
+  min-height: 24px;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.menu-trigger-loading {
+  width: auto;
+  height: auto;
+  padding: 0.65rem 0.9rem;
+  background: #e7dfcc;
+}
+
+.menu-trigger:focus-visible,
+.touch-controls button:focus-visible,
+.pause-menu button:focus-visible,
+.pause-menu a:focus-visible {
+  outline: 3px solid #fff5dc;
+  outline-offset: 4px;
+}
+
+.touch-controls {
+  display: none;
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  gap: 0.5rem;
+}
+
+.touch-controls button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.5rem;
+  opacity: 0.8;
+  touch-action: none;
+  user-select: none;
+}
+
+@media (any-pointer: coarse) {
+  .menu-trigger {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .touch-controls {
+    display: flex;
+  }
+}
+
+.game-status {
+  position: absolute;
+  inset: 45% 1rem auto;
+  margin: 0;
+  padding: 1rem;
+  background: #17203a;
+  color: #fff5dc;
+  text-align: center;
+}
+
+.pause-menu {
+  width: min(22rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow: auto;
+  border: 4px solid #e7dfcc;
+  box-shadow: 8px 8px 0 #080c16;
+  padding: 2rem;
+  background: #17203a;
+  color: #fff5dc;
+  text-align: center;
+  font-family: monospace;
+}
+
+.pause-menu::backdrop {
+  background: rgb(8 12 22 / 65%);
+}
+
+.pause-menu h1 {
+  margin: 0 0 1.75rem;
+  font-size: 1.75rem;
+}
+
+.pause-menu button,
+.pause-menu a {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.pause-menu button:hover,
+.pause-menu a:hover {
+  background: #fff5dc;
+}
+
+.pause-menu p {
+  margin: 1.5rem 0 0;
+  color: #b9c9dc;
+}
